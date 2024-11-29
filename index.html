@@ -3,107 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortnite Shop and Epic Games Status</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Epic Games Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .status {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Fortnite Shop and Epic Games Status</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#shop">Fortnite Shop</a></li>
-            <li><a href="#status">Epic Games Status</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section id="shop">
-            <h2>Fortnite Shop</h2>
-            <div id="fortnite-shop">
-                <!-- Fortnite shop items will be displayed here -->
-            </div>
-        </section>
-        <section id="status">
-            <h2>Epic Games Status</h2>
-            <div id="epic-games-status">
-                <!-- Epic Games status will be displayed here -->
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 My Website</p>
-    </footer>
+    <h1>Epic Games Status</h1>
+    <div id="status" class="status">Loading...</div>
+
     <script>
-        async function fetchFortniteShop() {
-            try {
-                const response = await fetch('https://fortnite-api.com/v2/shop/br');
-                const data = await response.json();
-                displayShop(data.data);
-            } catch (error) {
-                console.error('Error fetching Fortnite shop:', error);
-            }
-        }
-
-        function displayShop(shopData) {
-            const shopContainer = document.getElementById('fortnite-shop');
-
-            shopData.daily.entries.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'shop-item';
-
-                const itemName = document.createElement('h3');
-                itemName.textContent = item.items[0].name;
-
-                const itemImage = document.createElement('img');
-                itemImage.src = item.items[0].images.icon;
-                itemImage.alt = item.items[0].name;
-
-                itemElement.appendChild(itemName);
-                itemElement.appendChild(itemImage);
-                shopContainer.appendChild(itemElement);
-            });
-        }
-
-        async function fetchEpicGamesStatus() {
+        async function fetchStatus() {
             try {
                 const response = await fetch('https://status.epicgames.com/api/v2/status.json');
                 const data = await response.json();
-                displayStatus(data.status);
+                const statusElement = document.getElementById('status');
+                statusElement.innerHTML = `
+                    <h2>${data.page.name}</h2>
+                    <p>Status: ${data.status.description}</p>
+                `;
             } catch (error) {
-                console.error('Error fetching Epic Games status:', error);
+                document.getElementById('status').innerText = 'Failed to load status.';
+                console.error('Error fetching status:', error);
             }
         }
 
-        function displayStatus(statusData) {
-            const statusContainer = document.getElementById('epic-games-status');
-
-            const statusTitle = document.createElement('h2');
-            statusTitle.textContent = 'Epic Games Status';
-
-            const statusDescription = document.createElement('p');
-            statusDescription.textContent = statusData.description;
-
-            statusContainer.appendChild(statusTitle);
-            statusContainer.appendChild(statusDescription);
-
-            statusData.indicator.forEach(indicator => {
-                const indicatorElement = document.createElement('div');
-                indicatorElement.className = 'status-indicator';
-
-                const indicatorName = document.createElement('h3');
-                indicatorName.textContent = indicator.name;
-
-                const indicatorStatus = document.createElement('p');
-                indicatorStatus.textContent = indicator.status;
-
-                indicatorElement.appendChild(indicatorName);
-                indicatorElement.appendChild(indicatorStatus);
-                statusContainer.appendChild(indicatorElement);
-            });
-        }
-
-        fetchFortniteShop();
-        fetchEpicGamesStatus();
+        fetchStatus();
     </script>
 </body>
 </html>
+<div id="incidents" class="status">Loading incidents...</div>
+
+<script>
+    async function fetchIncidents() {
+        try {
+            const response = await fetch('https://status.epicgames.com/api/v2/incidents.json');
+            const data = await response.json();
+            const incidentsElement = document.getElementById('incidents');
+            if (data.incidents.length > 0) {
+                incidentsElement.innerHTML = '<h2>Incidents</h2>';
+                data.incidents.forEach(incident => {
+                    incidentsElement.innerHTML += `
+                        <div>
+                            <h3>${incident.name}</h3>
+                            <p>Status: ${incident.status}</p>
+                            <p>Impact: ${incident.impact}</p>
+                            <p>Updated at: ${new Date(incident.updated_at).toLocaleString()}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                incidentsElement.innerHTML = '<p>No incidents reported.</p>';
+            }
+        } catch (error) {
+            document.getElementById('incidents').innerText = 'Failed to load incidents.';
+            console.error('Error fetching incidents:', error);
+        }
+    }
+
+    fetchIncidents();
+</script>
