@@ -1,42 +1,164 @@
-/* Basic CSS Template */
-
-body {
-    font-family: Arial, sans-serif;
+/* Reset CSS */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
+/* Corpo del sito */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    line-height: 1.6;
+}
+
+/* Header (barra di navigazione) */
 header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-nav {
-    background: #444;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-main {
+    background: linear-gradient(135deg, #6a1b9a, #4caf50);
     padding: 20px;
+    text-align: center;
 }
 
+header h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar */
+nav {
+    margin-top: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff4081;
+}
+
+/* Sezione Notizie */
+#notizie {
+    padding: 50px;
+    background-color: #2c2f33;
+    text-align: center;
+}
+
+#notizie h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ff4081;
+}
+
+#notizie p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Sezione Eventi */
+#eventi {
+    padding: 50px;
+    background-color: #424242;
+    text-align: center;
+}
+
+#eventi h2 {
+    font-size: 2.5rem;
+    color: #ff9800;
+    margin-bottom: 30px;
+}
+
+.evento {
+    background: #333;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.evento h3 {
+    font-size: 2rem;
+    color: #ffeb3b;
+}
+
+.evento p {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+/* Galleria Immagini */
+#galleria {
+    padding: 50px;
+    background: #2a2a2a;
+}
+
+#galleria h2 {
+    font-size: 2.5rem;
+    color: #00bcd4;
+    margin-bottom: 30px;
+}
+
+#galleria .galleria-imma {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.galleria-imma img {
+    max-width: 100%;
+    height: auto;
+    width: 300px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.galleria-imma img:hover {
+    transform: scale(1.1);
+}
+
+/* Footer */
 footer {
     background: #333;
-    color: #fff;
+    color: white;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
+    padding: 20px;
+    position: relative;
     bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    #notizie p, #eventi .evento p, #galleria .galleria-imma img {
+        font-size: 1rem;
+    }
 }
