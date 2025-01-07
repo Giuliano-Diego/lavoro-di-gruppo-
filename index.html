@@ -41,21 +41,23 @@
         }
 
         function toggleInfo(index) {
-            const infoElement = document.getElementById(`main-info-${index}`);
-            const toggleButton = document.getElementById(`toggle-${index}`);
+    const infoElement = document.getElementById(`main-info-${index}`);
+    const toggleButton = document.getElementById(`toggle-${index}`);
 
-            if (infoElement.style.display === 'none' || infoElement.style.display === '') {
-                infoElement.style.display = 'block';  // Show the info
-                toggleButton.innerText = 'Hide Information';  // Change the button text
-                toggleButton.classList.remove('show-stats');
-                toggleButton.classList.add('hide-stats');
-            } else {
-                infoElement.style.display = 'none';  // Hide the info
-                toggleButton.innerText = 'Show Information';  // Change the button text
-                toggleButton.classList.remove('hide-stats');
-                toggleButton.classList.add('show-stats');
-            }
-        }
+    if (!infoElement) return; 
+
+    if (infoElement.style.display === 'none' || infoElement.style.display === '') {
+        infoElement.style.display = 'block';  // Show the info
+        toggleButton.innerText = 'Hide Information';  // Change the button text
+        toggleButton.classList.remove('show-stats');
+        toggleButton.classList.add('hide-stats');
+    } else {
+        infoElement.style.display = 'none';  // Hide the info
+        toggleButton.innerText = 'Show Information';  // Change the button text
+        toggleButton.classList.remove('hide-stats');
+        toggleButton.classList.add('show-stats');
+    }
+}
 
         fetchIncidents();
     </script>
